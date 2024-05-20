@@ -27,7 +27,7 @@ function ResaleTable({ resales, addResale }) {
             <Th>Town</Th>
             <Th>Type</Th>
             <Th>Storey</Th>
-            <Th>Area</Th>
+            <Th>Area m²</Th>
             <Th>Resale S$</Th>
             <Th>Add to List</Th>
           </Tr>

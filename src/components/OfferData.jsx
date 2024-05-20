@@ -12,15 +12,33 @@ import {
   Switch,
   Tooltip,
   Button,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { SmallCloseIcon, AddIcon, WarningIcon } from "@chakra-ui/icons";
+import EditOfferModal from "./EditOfferModal";
+import AddOfferModal from "./AddOfferModal";
+import { EditIcon, AddIcon, WarningIcon } from "@chakra-ui/icons";
 
-function ResaleData({ resaleList, delResale }) {
+function OfferData({ offerList, delOffer, editOffer }) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [selectedResale, setSelectedResale] = useState(null);
+
+  const handleOpenModal = (resale) => {
+    setSelectedResale(resale);
+    onOpen();
+  };
+
   return (
     <TableContainer>
       <Table size="md" variant="striped" colorScheme="blackAlpha">
-        <TableCaption>Saved Market Transaction List</TableCaption>
+        <TableCaption></TableCaption>
         <Thead>
           <Tr>
             <Th>Month</Th>
@@ -34,7 +52,7 @@ function ResaleData({ resaleList, delResale }) {
           </Tr>
         </Thead>
         <Tbody>
-          {resaleList.map((resale, index) => (
+          {offerList.map((resale, index) => (
             <Tr key={index}>
               <Td>{resale.month}</Td>
               <Td>{resale.block}</Td>
@@ -46,15 +64,24 @@ function ResaleData({ resaleList, delResale }) {
               <Td>{parseInt(`${resale.psf}`)}</Td>
               <Td>
                 <Button
-                  leftIcon={<SmallCloseIcon />}
-                  colorScheme="red"
+                  leftIcon={<EditIcon />}
+                  colorScheme="teal"
                   variant="ghost"
                   size="xs"
                   style={{ cursor: "pointer" }}
-                  onClick={() => delResale(resale)}
+                  onClick={() => handleOpenModal(resale)}
                 >
-                  REMOVE
+                  UPDATE
                 </Button>
+                {selectedResale && (
+                  <EditOfferModal
+                    isOpen={isOpen}
+                    onClose={onClose}
+                    editOffer={editOffer}
+                    delOffer={delOffer}
+                    resale={selectedResale}
+                  />
+                )}
               </Td>
             </Tr>
           ))}
@@ -64,4 +91,4 @@ function ResaleData({ resaleList, delResale }) {
   );
 }
 
-export default ResaleData;
+export default OfferData;

@@ -29,15 +29,19 @@ import {
   FormLabel,
   FormErrorMessage,
   TableCaption,
+  useDisclosure,
 } from "@chakra-ui/react";
 
 import { useEffect, useState } from "react";
 import SearchBar from "../SearchBar";
 import ResaleTable from "../ResaleTable";
+import ResaleList from "../ResaleListPage";
+import OfferData from "../OfferData";
 
 const ResalePage = () => {
   const [resales, setResale] = useState([]);
   const [search, setSearch] = useState("Cantonment Rd");
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleSubmit = (Search) => {
     // console.log(Search);
@@ -74,7 +78,9 @@ const ResalePage = () => {
     const BASE_URL = "https://api.airtable.com/v0/appufJw7hv6aH44fQ";
     console.log(typeof props.id);
     const psf =
-      parseFloat(props.resale_price) / parseFloat(props.floor_area_sqm);
+      parseFloat(props.resale_price) /
+      parseFloat(props.floor_area_sqm) /
+      10.764;
     console.log(psf);
 
     const response = await fetch(`${BASE_URL}/list`, {
@@ -118,6 +124,28 @@ const ResalePage = () => {
       <h1>{`HDB Resale Transaction`}</h1>
       <h2>{`${search}`}</h2>
       <SearchBar search={search} onSearchSubmit={handleSubmit} />
+      <Button onClick={onOpen}>My list</Button>
+
+      <Modal
+        onClose={onClose}
+        isOpen={isOpen}
+        scrollBehavior="outside"
+        size="full"
+        isCentered
+      >
+        <ModalOverlay />
+        <ModalContent h="auto" maxH="80vh" w="auto">
+          <ModalHeader></ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <OfferData />
+            <ResaleList />
+          </ModalBody>
+          <ModalFooter>
+            <Button onClick={onClose}>Close</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
       <ResaleTable resales={resales} addResale={addResale} />
     </div>
   );
