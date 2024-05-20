@@ -137,8 +137,7 @@ const ResalePage = () => {
         <ModalContent h="auto" maxH="80vh" w="auto">
           <ModalHeader></ModalHeader>
           <ModalCloseButton />
-          <ModalBody>
-            <OfferData />
+          <ModalBody textAlign="center">
             <ResaleList />
           </ModalBody>
           <ModalFooter>
