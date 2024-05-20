@@ -189,7 +189,7 @@ function ResaleList() {
   // Return a table with the respective record fields as columns
   return (
     <div className="container">
-      <h1>{`My Resale List`}</h1>
+      <h1 className="text-3xl font-bold">{`My Resale List`}</h1>
       <OfferData
         offerList={offerList}
         addOffer={addOffer}

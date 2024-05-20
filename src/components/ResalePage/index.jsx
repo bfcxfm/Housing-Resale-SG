@@ -121,7 +121,7 @@ const ResalePage = () => {
   // Return a table with the respective record fields as columns
   return (
     <div className="container">
-      <h1>{`HDB Resale Transaction`}</h1>
+      <h1 className="text-3xl font-bold">{`HDB Resale Transaction`}</h1>
       <h2>{`${search}`}</h2>
       <SearchBar search={search} onSearchSubmit={handleSubmit} />
       <Button onClick={onOpen}>My list</Button>
