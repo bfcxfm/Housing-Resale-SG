@@ -41,7 +41,18 @@ import { useDebounce } from "@uidotdev/usehooks";
 
 const ResalePage = () => {
   const [resales, setResale] = useState([]);
-  const [search, setSearch] = useState("Cantonment Rd");
+  const [search, setSearch] = useState({
+    SEARCHVAL: "THE PINNACLE@DUXTON",
+    BLK_NO: "1C",
+    ROAD_NAME: "CANTONMENT RD",
+    BUILDING: "THE PINNACLE@DUXTON",
+    ADDRESS: "1C CANTONMENT ROAD THE PINNACLE@DUXTON SINGAPORE 085301",
+    POSTAL: "085301",
+    X: "28929.0768545093",
+    Y: "28879.3522476424",
+    LATITUDE: "1.27744909387079",
+    LONGITUDE: "103.841666679651",
+  });
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleSubmit = (Search) => {
@@ -50,23 +61,46 @@ const ResalePage = () => {
   };
 
   async function fetchResales() {
-    const TOKEN = import.meta.env.VITE_AIRTABLE_TOKEN;
     const BASE_URL =
       "https://data.gov.sg/api/action/datastore_search?resource_id=d_8b84c4ee58e3cfc0ece0d773c8ca6abc&limit=20";
-    const response = await fetch(
-      `${BASE_URL}&q={"street_name":"${search}"}&sort=_id desc`,
-      {
-        method: "GET",
-        headers: {},
-      }
-    );
-    const jsonData = await response.json();
 
-    const resaleData = jsonData.result.records.map((data) => ({
-      ...data,
-      id: data._id,
-    }));
-    setResale(resaleData);
+    try {
+      const response = await fetch(
+        `${BASE_URL}&q={"block":"${search.BLK_NO}","street_name":"${search.ROAD_NAME}"}&sort=_id desc`,
+        {
+          method: "GET",
+          headers: {},
+        }
+      );
+      const jsonData = await response.json();
+      // console.log(jsonData.result.total);
+
+      if (jsonData.result.total !== 0) {
+        const resaleData = jsonData.result.records.map((data) => ({
+          ...data,
+          id: data._id,
+        }));
+        setResale(resaleData);
+      } else {
+        const response = await fetch(
+          `${BASE_URL}&q={"street_name":"${search.ROAD_NAME}"}&sort=_id desc`,
+          {
+            method: "GET",
+            headers: {},
+          }
+        );
+        const jsonData = await response.json();
+        const resaleData = jsonData.result.records.map((data) => ({
+          ...data,
+          id: data._id,
+        }));
+        setResale(resaleData);
+      }
+    } catch (error) {
+      // Handle any errors that occur during fetch
+      console.error("Error fetching resale data:", error);
+    }
+
     // console.log(resales);
   }
 
@@ -122,10 +156,12 @@ const ResalePage = () => {
   // Return a table with the respective record fields as columns
   return (
     <div className="container">
-      <h1 className="text-3xl font-bold">{`HDB Resale Transaction`}</h1>
-      <h2>{`${search}`}</h2>
+      <h1 className="text-4xl font-bold">{`HDB Resale Transaction`}</h1>
+      <h2>{`${search.ADDRESS}`}</h2>
       <SearchBar search={search} onSearchSubmit={handleSubmit} />
-      <Button onClick={onOpen}>My list</Button>
+      <Button margin={3} onClick={onOpen}>
+        My list
+      </Button>
 
       <Modal
         onClose={onClose}

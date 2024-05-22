@@ -24,6 +24,54 @@ function SearchBar({ search, onSearchSubmit }) {
   const [Lon, setLon] = useState("");
   const [post, setPost] = useState("");
 
+  const dictionary = {
+    STREET: "ST",
+    SAINT: "ST.",
+    DRIVE: "DR",
+    ROAD: "RD",
+    AVENUE: "AVE",
+    NORTH: "NTH",
+    SOUTH: "STH",
+    CENTRAL: "CTRL",
+    CRESCENT: "CRES",
+    PLACE: "PL",
+    COMMONWEALTH: "C'WEALTH",
+    CLOSE: "CL",
+    PARK: "PK",
+    JALAN: "JLN",
+    BUKIT: "BT",
+    KAMPONG: "KG",
+    LORONG: "LOR",
+    TERRACE: "TER",
+    MARKET: "MKT",
+    UPPER: "UPP",
+    GARDENS: "GDNS",
+    HEIGHTS: "HTS",
+    TANJONG: "TG",
+  };
+
+  const replaceWords = (selectedAddress) => {
+    const address = selectedAddress.ROAD_NAME.toUpperCase(); // Convert to uppercase for consistent comparison
+    let replacedAddress = address;
+
+    // Replace words in the address using the dictionary
+    Object.entries(dictionary).forEach(([word, replacement]) => {
+      // Replace whole words with the dictionary values
+      replacedAddress = replacedAddress.replace(
+        new RegExp(`\\b${word}\\b`, "g"),
+        replacement
+      );
+    });
+
+    return { ...selectedAddress, ROAD_NAME: replacedAddress };
+  };
+
+  const onSelect = (selectedAddress) => {
+    const replacedAddress = replaceWords(selectedAddress);
+    console.log(replacedAddress);
+    onSearchSubmit(replacedAddress);
+  };
+
   const handleChange = (evt) => {
     setInputValue(evt.target.value);
   };
@@ -52,7 +100,7 @@ function SearchBar({ search, onSearchSubmit }) {
     }));
 
     // const AddressData = jsonData.results.map((data) => data.ADDRESS);
-    console.log(AddressData);
+    // console.log(AddressData);
     setAddress(AddressData);
   }
 
@@ -65,7 +113,7 @@ function SearchBar({ search, onSearchSubmit }) {
       <form onSubmit={handleSubmit}>
         <Flex minWidth="max-content" alignItems="center" gap="2">
           <FormControl>
-            <FormLabel>Find by Street</FormLabel>
+            <FormLabel>Find Resale by Street / Postal Code</FormLabel>
             {/* <Input type="text" value={inputValue} onChange={handleChange} /> */}
             <AutoComplete openOnFocus>
               <AutoCompleteInput variant="filled" onChange={handleChange} />
@@ -75,17 +123,18 @@ function SearchBar({ search, onSearchSubmit }) {
                     key={idx}
                     value={address.ADDRESS}
                     textTransform="capitalize"
+                    onClick={() => onSelect(address)}
                   >
                     {address.ADDRESS}
                   </AutoCompleteItem>
                 ))}
               </AutoCompleteList>
             </AutoComplete>
-            <FormHelperText>Search by Street / Postal Code</FormHelperText>
+            <FormHelperText>Results by Street / Postal Code</FormHelperText>
           </FormControl>
-          <Button mt={2} colorScheme="teal" type="submit">
+          {/* <Button mt={2} colorScheme="teal" type="submit">
             Search
-          </Button>
+          </Button> */}
         </Flex>
       </form>
     </>

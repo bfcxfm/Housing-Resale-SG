@@ -18,7 +18,7 @@ function ResaleTable({ resales, addResale }) {
   return (
     <TableContainer>
       <Table size="md" variant="striped" colorScheme="blackAlpha">
-        <TableCaption>Results filtered by Street</TableCaption>
+        <TableCaption>Results filtered by Search</TableCaption>
         <Thead>
           <Tr>
             <Th>Month</Th>
