@@ -30,7 +30,7 @@ const AddOfferModal = ({ isOpen, onClose, addOffer }) => {
   const handleChange = (event) => {
     setOfferForm((curr) => ({
       ...curr,
-      [event.target.name]: event.target.value,
+      [event.target.name]: event.target.value.toUpperCase(),
     }));
   };
 

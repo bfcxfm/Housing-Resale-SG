@@ -45,7 +45,7 @@ const EditOfferModal = ({ isOpen, onClose, editOffer, delOffer, resale }) => {
   const handleChange = (event) => {
     setOfferForm((curr) => ({
       ...curr,
-      [event.target.name]: event.target.value,
+      [event.target.name]: event.target.value.toUpperCase(),
     }));
     console.log(offerForm);
     console.log(offerForm.id);

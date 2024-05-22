@@ -24,7 +24,6 @@ import {
   Input,
   NumberInput,
   NumberInputField,
-  Select,
   FormControl,
   FormLabel,
   FormErrorMessage,
@@ -37,6 +36,8 @@ import SearchBar from "../SearchBar";
 import ResaleTable from "../ResaleTable";
 import ResaleList from "../ResaleListPage";
 import OfferData from "../OfferData";
+import Select from "react-select";
+import { useDebounce } from "@uidotdev/usehooks";
 
 const ResalePage = () => {
   const [resales, setResale] = useState([]);
