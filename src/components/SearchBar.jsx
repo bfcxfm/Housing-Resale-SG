@@ -14,6 +14,7 @@ import {
   AutoCompleteList,
 } from "@choc-ui/chakra-autocomplete";
 import { useDebounce } from "@uidotdev/usehooks";
+import ReplaceWords from "./ReplaceWords";
 
 function SearchBar({ search, onSearchSubmit }) {
   const [inputValue, setInputValue] = useState(search);
@@ -24,50 +25,8 @@ function SearchBar({ search, onSearchSubmit }) {
   const [Lon, setLon] = useState("");
   const [post, setPost] = useState("");
 
-  const dictionary = {
-    STREET: "ST",
-    SAINT: "ST.",
-    DRIVE: "DR",
-    ROAD: "RD",
-    AVENUE: "AVE",
-    NORTH: "NTH",
-    SOUTH: "STH",
-    CENTRAL: "CTRL",
-    CRESCENT: "CRES",
-    PLACE: "PL",
-    COMMONWEALTH: "C'WEALTH",
-    CLOSE: "CL",
-    PARK: "PK",
-    JALAN: "JLN",
-    BUKIT: "BT",
-    KAMPONG: "KG",
-    LORONG: "LOR",
-    TERRACE: "TER",
-    MARKET: "MKT",
-    UPPER: "UPP",
-    GARDENS: "GDNS",
-    HEIGHTS: "HTS",
-    TANJONG: "TG",
-  };
-
-  const replaceWords = (selectedAddress) => {
-    const address = selectedAddress.ROAD_NAME.toUpperCase(); // Convert to uppercase for consistent comparison
-    let replacedAddress = address;
-
-    // Replace words in the address using the dictionary
-    Object.entries(dictionary).forEach(([word, replacement]) => {
-      // Replace whole words with the dictionary values
-      replacedAddress = replacedAddress.replace(
-        new RegExp(`\\b${word}\\b`, "g"),
-        replacement
-      );
-    });
-
-    return { ...selectedAddress, ROAD_NAME: replacedAddress };
-  };
-
   const onSelect = (selectedAddress) => {
-    const replacedAddress = replaceWords(selectedAddress);
+    const replacedAddress = ReplaceWords(selectedAddress);
     console.log(replacedAddress);
     onSearchSubmit(replacedAddress);
   };
@@ -115,7 +74,7 @@ function SearchBar({ search, onSearchSubmit }) {
           <FormControl>
             <FormLabel>Find Resale by Street / Postal Code</FormLabel>
             {/* <Input type="text" value={inputValue} onChange={handleChange} /> */}
-            <AutoComplete openOnFocus>
+            <AutoComplete openOnFocus emptyState={false}>
               <AutoCompleteInput variant="filled" onChange={handleChange} />
               <AutoCompleteList>
                 {addresses.map((address, idx) => (
@@ -132,9 +91,9 @@ function SearchBar({ search, onSearchSubmit }) {
             </AutoComplete>
             <FormHelperText>Results by Street / Postal Code</FormHelperText>
           </FormControl>
-          {/* <Button mt={2} colorScheme="teal" type="submit">
+          <Button mt={2} colorScheme="teal" type="submit">
             Search
-          </Button> */}
+          </Button>
         </Flex>
       </form>
     </>

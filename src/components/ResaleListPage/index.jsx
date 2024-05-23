@@ -5,12 +5,15 @@ import OfferData from "../OfferData";
 import { Button, Tooltip, useDisclosure } from "@chakra-ui/react";
 import AddOfferModal from "../AddOfferModal";
 import { PlusSquareIcon, AddIcon, WarningIcon } from "@chakra-ui/icons";
+import { useSharedStore } from "../SharedStore";
 
 function ResaleList() {
   const [resaleList, setResaleList] = useState([]);
   const [offerList, setOfferList] = useState([]);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const { resaleMounted } = useSharedStore();
 
   const history = useHistory();
 
