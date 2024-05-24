@@ -14,59 +14,50 @@ class main {
     Router(App)
   }
 
-    class ResalePage {
+class ResalePage {
     useState[resales, setResale]
     useState[search, setSearch]
-
   }
   note for ResalePage "Fetched Transaction List from api"
 
 class ResaleTable {
     Show (props)
-
   }
   note for ResaleTable "props = { resales, addResale }"
 
-  class SearchBar {
-    useState[resales, setResale]
-    useState[search, setSearch]
+class SearchBar {
+  useState[resales, setResale]
+  useState[search, setSearch]
+}
+note for SearchBar "props = { search, onSearchSubmit }"
 
-  }
-  note for SearchBar "props = { search, onSearchSubmit }"
-
-   class OpenMap {
-    Show (props)
-
-  }
-  note for OpenMap "props = { search }"
+class OpenMap {
+  Show (props)
+}
+note for OpenMap "props = { search }"
 
 class ResaleList {
     useState[inputValue, setInputValue]
     useState[addresses, setAddress]
-
   }
 
 class OfferData {
     useState[selectedResale, setSelectedResale]
-
   }
   note for OfferData "props = { offerList, delOffer, editOffer }"
 
-  class EditOfferModal {
+class EditOfferModal {
     useState[offerForm, setOfferForm]
-
   }
   note for EditOfferModal "props = { isOpen, onClose, editOffer, delOffer, resale }"
 
-  class AddOfferModal  {
+class AddOfferModal  {
     useState[offerForm, setOfferForm]
-
   }
   note for AddOfferModal "props = { isOpen, onClose, addOffer }"
 
 class ResaleData {
     Show (props)
-
   }
   note for ResaleData "props = { resaleList, delResale }"
 
