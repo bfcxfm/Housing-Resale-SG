@@ -1,6 +1,6 @@
 # Singapore Residential Property Price Trend - HDB Resale
 
-This project provides a insight of the Singapore Residential property resale price on the market.
+This project provides an insight of the Singapore Residential property resale price on the market.
 
 ```mermaid
 classDiagram
