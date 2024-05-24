@@ -18,7 +18,7 @@ class ResalePage {
     useState[resales, setResale]
     useState[search, setSearch]
   }
-  note for ResalePage "Fetched Transaction List from api"
+  note for ResalePage "Fetch Transaction List from api"
 
 class ResaleTable {
     Show (props)
@@ -59,7 +59,7 @@ class AddOfferModal  {
 class ResaleData {
     Show (props)
   }
-  note for ResaleData "props = { resaleList, delResale }"
+  note for ResaleData "props = { resaleList, delResale, cloneResale }"
 
 
   App *-- main
