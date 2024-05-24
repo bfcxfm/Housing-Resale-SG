@@ -14,9 +14,15 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { SmallCloseIcon, AddIcon, WarningIcon } from "@chakra-ui/icons";
+import {
+  SmallCloseIcon,
+  AddIcon,
+  WarningIcon,
+  PlusSquareIcon,
+  CopyIcon,
+} from "@chakra-ui/icons";
 
-function ResaleData({ resaleList, delResale }) {
+function ResaleData({ resaleList, delResale, cloneResale }) {
   return (
     <TableContainer>
       <Table size="md" variant="striped" colorScheme="blackAlpha">
@@ -49,11 +55,19 @@ function ResaleData({ resaleList, delResale }) {
                   leftIcon={<SmallCloseIcon />}
                   colorScheme="red"
                   variant="ghost"
-                  size="xs"
+                  size="s"
                   style={{ cursor: "pointer" }}
                   onClick={() => delResale(resale)}
+                ></Button>
+                <Button
+                  leftIcon={<CopyIcon />}
+                  colorScheme="teal"
+                  variant="ghost"
+                  size="xs"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => cloneResale(resale)}
                 >
-                  REMOVE
+                  CLONE
                 </Button>
               </Td>
             </Tr>

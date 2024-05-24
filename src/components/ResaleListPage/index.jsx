@@ -81,6 +81,48 @@ function ResaleList() {
     // setList(listData);
   }
 
+  async function cloneResale(props) {
+    const TOKEN = import.meta.env.VITE_AIRTABLE_TOKEN;
+    const BASE_URL = "https://api.airtable.com/v0/appufJw7hv6aH44fQ";
+    const RECORDS = props.id;
+    const psf = parseFloat(props.resale) / parseFloat(props.area) / 10.764;
+    console.log(psf);
+
+    const response = await fetch(`${BASE_URL}/offer/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${TOKEN}`,
+      },
+      body: JSON.stringify({
+        records: [
+          {
+            fields: {
+              street: props.street,
+              month: new Date().toISOString().slice(0, 7),
+              block: props.block,
+              resale: props.resale,
+              area: props.area,
+              storey: props.storey,
+              type: props.type,
+              psf: parseInt(psf),
+            },
+          },
+        ],
+      }),
+    });
+    const jsonData = await response.json();
+    console.log(jsonData);
+    fetchOfferList();
+
+    // const listData = jsonData.records.map((data) => ({
+    //   ...data.fields,
+    //   id: data.fields.id,
+    // }));
+
+    // setList(listData);
+  }
+
   async function addOffer(props) {
     const TOKEN = import.meta.env.VITE_AIRTABLE_TOKEN;
     const BASE_URL = "https://api.airtable.com/v0/appufJw7hv6aH44fQ";
@@ -200,27 +242,33 @@ function ResaleList() {
         delOffer={delOffer}
       />
       <div>
-        <Button
-          leftIcon={<PlusSquareIcon />}
-          colorScheme="teal"
-          variant="link"
-          mb={"2rem"}
-          style={{ cursor: "pointer" }}
-          onClick={onOpen}
+        <Tooltip
+          hasArrow
+          label="or Clone from Below Transaction List"
+          bg="gray.300"
+          color="black"
         >
-          <Tooltip
-            hasArrow
-            label="Add Your Expected Price"
-            bg="gray.300"
-            color="black"
+          <Button
+            leftIcon={<AddIcon />}
+            colorScheme="teal"
+            variant="link"
+            mb={"2rem"}
+            size="xs"
+            style={{ cursor: "pointer" }}
+            onClick={onOpen}
           >
             ADD HOUSE
-          </Tooltip>
-        </Button>
+          </Button>
+        </Tooltip>
+
         <AddOfferModal isOpen={isOpen} onClose={onClose} addOffer={addOffer} />
       </div>
 
-      <ResaleData resaleList={resaleList} delResale={delResale} />
+      <ResaleData
+        resaleList={resaleList}
+        delResale={delResale}
+        cloneResale={cloneResale}
+      />
     </div>
   );
 }
