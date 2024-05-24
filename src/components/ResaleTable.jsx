@@ -12,7 +12,6 @@ import {
   Switch,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import ListCheck from "./ListCheck";
 
 function ResaleTable({ resales, addResale }) {
   return (

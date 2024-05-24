@@ -29,6 +29,7 @@ import {
   FormErrorMessage,
   TableCaption,
   useDisclosure,
+  Box,
 } from "@chakra-ui/react";
 
 import { useEffect, useState } from "react";
@@ -164,6 +165,12 @@ const ResalePage = () => {
       <h2>{`${search.ADDRESS}`}</h2>
       <SearchBar search={search} onSearchSubmit={handleSubmit} />
       <OpenMap search={search} />
+      {/* <Box
+        as="iframe"
+        width="100%"
+        height="500"
+        src="https://beta.data.gov.sg/collections/152/datasets/d_14f63e595975691e7c24a27ae4c07c79/chart/87"
+      ></Box> */}
       <Button margin={3} onClick={onOpen}>
         My list
       </Button>
