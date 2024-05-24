@@ -4,7 +4,7 @@ This project provides a insight of the Singapore Residential property resale pri
 
 ```mermaid
 classDiagram
-  direction TP
+  direction BT
   class App {
     Chakra
     Router(ResalePage, ResaleList)
