@@ -1,6 +1,7 @@
 import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { useEffect } from "react";
+import { Box } from "@chakra-ui/react";
 
 export default function OpenMap({ search }) {
   const MapView = ({ search }) => {
@@ -22,7 +23,7 @@ export default function OpenMap({ search }) {
   };
 
   return (
-    <div>
+    <Box>
       <MapContainer
         center={[`${search.LATITUDE}`, `${search.LONGITUDE}`]}
         scrollWheelZoom={false}
@@ -37,6 +38,6 @@ export default function OpenMap({ search }) {
         />
         <MapView search={search} />
       </MapContainer>
-    </div>
+    </Box>
   );
 }

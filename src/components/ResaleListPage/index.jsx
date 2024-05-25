@@ -1,15 +1,18 @@
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import ResaleData from "../ResaleData";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import OfferData from "../OfferData";
 import { Button, Tooltip, useDisclosure } from "@chakra-ui/react";
 import AddOfferModal from "../AddOfferModal";
 import { PlusSquareIcon, AddIcon, WarningIcon } from "@chakra-ui/icons";
 import { useSharedStore } from "../SharedStore";
+import { SharedDataContext } from "../SharedData";
 
 function ResaleList() {
-  const [resaleList, setResaleList] = useState([]);
-  const [offerList, setOfferList] = useState([]);
+  // const [resaleList, setResaleList] = useState([]);
+  // const [offerList, setOfferList] = useState([]);
+  const { resaleList, offerList, fetchResaleList, fetchOfferList } =
+    useContext(SharedDataContext);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -17,45 +20,45 @@ function ResaleList() {
 
   const history = useHistory();
 
-  async function fetchResaleList() {
-    const TOKEN = import.meta.env.VITE_AIRTABLE_TOKEN;
-    const BASE_URL = "https://api.airtable.com/v0/appufJw7hv6aH44fQ";
-    const response = await fetch(`${BASE_URL}/list`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${TOKEN}`,
-      },
-    });
-    const jsonData = await response.json();
+  // async function fetchResaleList() {
+  //   const TOKEN = import.meta.env.VITE_AIRTABLE_TOKEN;
+  //   const BASE_URL = "https://api.airtable.com/v0/appufJw7hv6aH44fQ";
+  //   const response = await fetch(`${BASE_URL}/list`, {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: `Bearer ${TOKEN}`,
+  //     },
+  //   });
+  //   const jsonData = await response.json();
 
-    const listData = jsonData.records.map((data) => ({
-      ...data.fields,
-      id: data.id,
-    }));
+  //   const listData = jsonData.records.map((data) => ({
+  //     ...data.fields,
+  //     id: data.id,
+  //   }));
 
-    setResaleList(listData);
-  }
+  //   setResaleList(listData);
+  // }
 
-  async function fetchOfferList() {
-    const TOKEN = import.meta.env.VITE_AIRTABLE_TOKEN;
-    const BASE_URL = "https://api.airtable.com/v0/appufJw7hv6aH44fQ";
-    const response = await fetch(`${BASE_URL}/offer`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${TOKEN}`,
-      },
-    });
-    const jsonData = await response.json();
+  // async function fetchOfferList() {
+  //   const TOKEN = import.meta.env.VITE_AIRTABLE_TOKEN;
+  //   const BASE_URL = "https://api.airtable.com/v0/appufJw7hv6aH44fQ";
+  //   const response = await fetch(`${BASE_URL}/offer`, {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: `Bearer ${TOKEN}`,
+  //     },
+  //   });
+  //   const jsonData = await response.json();
 
-    const listData = jsonData.records.map((data) => ({
-      ...data.fields,
-      id: data.id,
-    }));
+  //   const listData = jsonData.records.map((data) => ({
+  //     ...data.fields,
+  //     id: data.id,
+  //   }));
 
-    setOfferList(listData);
-  }
+  //   setOfferList(listData);
+  // }
 
   async function delResale(props) {
     const TOKEN = import.meta.env.VITE_AIRTABLE_TOKEN;
@@ -84,9 +87,9 @@ function ResaleList() {
   async function cloneResale(props) {
     const TOKEN = import.meta.env.VITE_AIRTABLE_TOKEN;
     const BASE_URL = "https://api.airtable.com/v0/appufJw7hv6aH44fQ";
-    const RECORDS = props.id;
     const psf = parseFloat(props.resale) / parseFloat(props.area) / 10.764;
     console.log(psf);
+    console.log(props._id);
 
     const response = await fetch(`${BASE_URL}/offer/`, {
       method: "POST",
@@ -102,6 +105,7 @@ function ResaleList() {
               month: new Date().toISOString().slice(0, 7),
               block: props.block,
               resale: props.resale,
+              _id: parseInt(props._id),
               area: props.area,
               storey: props.storey,
               type: props.type,
@@ -170,6 +174,7 @@ function ResaleList() {
     const RECORDS = props.id;
     const psf = parseFloat(props.resale) / parseFloat(props.area) / 10.764;
     console.log(psf);
+    console.log(RECORDS);
 
     const response = await fetch(`${BASE_URL}/offer/${RECORDS}`, {
       method: "PATCH",
@@ -191,7 +196,7 @@ function ResaleList() {
       }),
     });
     const jsonData = await response.json();
-    console.log(jsonData);
+    // console.log(jsonData);
     fetchOfferList();
 
     // const listData = jsonData.records.map((data) => ({
@@ -214,7 +219,7 @@ function ResaleList() {
       },
     });
     const jsonData = await response.json();
-    console.log(jsonData);
+    // console.log(jsonData);
 
     fetchOfferList();
 
@@ -241,28 +246,6 @@ function ResaleList() {
         editOffer={editOffer}
         delOffer={delOffer}
       />
-      <div>
-        <Tooltip
-          hasArrow
-          label="or Clone from Below Transaction List"
-          bg="gray.300"
-          color="black"
-        >
-          <Button
-            leftIcon={<AddIcon />}
-            colorScheme="teal"
-            variant="link"
-            mb={"2rem"}
-            size="xs"
-            style={{ cursor: "pointer" }}
-            onClick={onOpen}
-          >
-            ADD HOUSE
-          </Button>
-        </Tooltip>
-
-        <AddOfferModal isOpen={isOpen} onClose={onClose} addOffer={addOffer} />
-      </div>
 
       <ResaleData
         resaleList={resaleList}

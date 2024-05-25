@@ -30,9 +30,12 @@ import {
   TableCaption,
   useDisclosure,
   Box,
+  Card,
+  CardBody,
+  Flex,
 } from "@chakra-ui/react";
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import SearchBar from "../SearchBar";
 import ResaleTable from "../ResaleTable";
 import ResaleList from "../ResaleListPage";
@@ -41,8 +44,10 @@ import Select from "react-select";
 import { useDebounce } from "@uidotdev/usehooks";
 import { useSharedStore } from "../SharedStore";
 import OpenMap from "../OpenMap";
+import { SharedDataContext } from "../SharedData";
 
 const ResalePage = () => {
+  const { addList } = useContext(SharedDataContext);
   const [resales, setResale] = useState([]);
   const [search, setSearch] = useState({
     SEARCHVAL: "THE PINNACLE@DUXTON",
@@ -137,7 +142,7 @@ const ResalePage = () => {
               month: props.month,
               block: props.block,
               resale: props.resale_price,
-              id: props.id,
+              _id: props.id,
               area: props.floor_area_sqm,
               storey: props.storey_range,
               type: props.flat_type,
@@ -161,16 +166,25 @@ const ResalePage = () => {
   // Return a table with the respective record fields as columns
   return (
     <div className="container">
-      <h1 className="text-4xl font-bold">{`HDB Resale Transaction`}</h1>
-      <h2>{`${search.ADDRESS}`}</h2>
-      <SearchBar search={search} onSearchSubmit={handleSubmit} />
+      <Card>
+        <CardBody>
+          <h1 className="text-4xl font-bold">{`HDB Resale Transaction`}</h1>
+          {/* <h2>{`${search.ADDRESS}`}</h2> */}
+          <SearchBar search={search} onSearchSubmit={handleSubmit} />
+        </CardBody>
+      </Card>
       <OpenMap search={search} />
-      {/* <Box
-        as="iframe"
-        width="100%"
-        height="500"
-        src="https://beta.data.gov.sg/collections/152/datasets/d_14f63e595975691e7c24a27ae4c07c79/chart/87"
-      ></Box> */}
+      {/* <Card width="75%">
+        <CardBody>
+          <Box
+            as="iframe"
+            width="100%"
+            height="500"
+            src="https://beta.data.gov.sg/collections/152/datasets/d_14f63e595975691e7c24a27ae4c07c79/chart/87"
+          ></Box>
+        </CardBody>
+      </Card> */}
+
       <Button margin={3} onClick={onOpen}>
         My list
       </Button>
@@ -178,11 +192,19 @@ const ResalePage = () => {
         onClose={onClose}
         isOpen={isOpen}
         scrollBehavior="outside"
-        size="full"
+        // size="full"
         isCentered
       >
         <ModalOverlay />
-        <ModalContent h="auto" maxH="80vh" w="auto">
+        <ModalContent
+          h="auto"
+          // maxH="80vh"
+          // w="auto"
+          maxW={{ base: "90%", md: "90%", lg: "90%" }}
+          borderRadius="lg"
+          boxShadow="lg"
+          p={4}
+        >
           <ModalHeader></ModalHeader>
           <ModalCloseButton />
           <ModalBody textAlign="center">
@@ -193,7 +215,7 @@ const ResalePage = () => {
           </ModalFooter>
         </ModalContent>
       </Modal>
-      <ResaleTable resales={resales} addResale={addResale} />
+      <ResaleTable resales={resales} addResale={addResale} addList={addList} />
     </div>
   );
 };

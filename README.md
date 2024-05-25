@@ -7,42 +7,60 @@ classDiagram
   direction BT
   class App {
     Chakra
-    Router(ResalePage, ResaleList)
+    SharedDataProvider
+    Router(ResalePage, ResaleListPage)
   }
 
 class main {
     Router(App)
   }
 
+class SharedData {
+    createContext
+    useState[resaleList, setResaleList]
+    useState[addList, setAddList]
+    useState[offerList, setOfferList]
+  }
+  note for SharedData "Fetch offerList and resaleList from api"
+
 class ResalePage {
+    useContext[ addList ]
     useState[resales, setResale]
     useState[search, setSearch]
+    useDisclosure[ isOpen, onOpen, onClose ]
   }
   note for ResalePage "Fetch Transaction List from api"
 
 class ResaleTable {
     Show (props)
   }
-  note for ResaleTable "props = { resales, addResale }"
+  note for ResaleTable "props = { resales, addResale, addList }"
 
 class SearchBar {
   useState[resales, setResale]
   useState[search, setSearch]
 }
 note for SearchBar "props = { search, onSearchSubmit }"
+note for SearchBar "Fetch Address Data from api"
+
+class ReplaceWords {
+  Replace (props)
+}
+note for ReplaceWords "props = { selectedAddress }"
 
 class OpenMap {
   Show (props)
 }
 note for OpenMap "props = { search }"
+note for OpenMap "Fetch Map Data from api"
 
-class ResaleList {
-    useState[inputValue, setInputValue]
-    useState[addresses, setAddress]
+class ResaleListPage {
+    useContext[ resaleList, offerList, fetchResaleList, fetchOfferList ]
   }
 
 class OfferData {
     useState[selectedResale, setSelectedResale]
+    useDisclosure[ isOpen, onOpen, onClose ]
   }
   note for OfferData "props = { offerList, delOffer, editOffer }"
 
@@ -64,18 +82,23 @@ class ResaleData {
 
   App *-- main
 ResalePage *-- App
+SharedData --* App
+SharedData --* ResalePage
+SharedData --* ResaleListPage
 ResaleTable *-- ResalePage
 SearchBar *-- ResalePage
+ReplaceWords *-- SearchBar
 OpenMap *-- ResalePage
-ResaleTable *-- SearchBar
+ResaleTable *-- ReplaceWords
 OpenMap *-- SearchBar
 ResaleData *-- ResaleTable
-ResaleList *-- App
-OfferData *-- ResaleList
+ResaleListPage *-- App
+OfferData *-- ResaleListPage
 OfferData *-- ResaleData
-ResaleData *-- ResaleList
+ResaleData *-- ResaleListPage
 EditOfferModal *-- OfferData
 AddOfferModal *-- OfferData
+
 
 
 ```

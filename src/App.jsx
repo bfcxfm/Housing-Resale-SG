@@ -4,18 +4,21 @@ import { Route, Switch } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
 import ResalePage from "./components/ResalePage";
 import ResaleList from "./components/ResaleListPage";
+import { SharedDataProvider } from "./components/SharedData";
 
 function App() {
   return (
     <ChakraProvider>
-      <Switch>
-        <Route path="/" exact>
-          <ResalePage />
-        </Route>
-        <Route path="/list" exact>
-          <ResaleList />
-        </Route>
-      </Switch>
+      <SharedDataProvider>
+        <Switch>
+          <Route path="/" exact>
+            <ResalePage />
+          </Route>
+          <Route path="/list" exact>
+            <ResaleList />
+          </Route>
+        </Switch>
+      </SharedDataProvider>
     </ChakraProvider>
   );
 }
