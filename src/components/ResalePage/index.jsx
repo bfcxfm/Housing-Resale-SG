@@ -40,9 +40,7 @@ import SearchBar from "../SearchBar";
 import ResaleTable from "../ResaleTable";
 import ResaleList from "../ResaleListPage";
 import OfferData from "../OfferData";
-import Select from "react-select";
 import { useDebounce } from "@uidotdev/usehooks";
-import { useSharedStore } from "../SharedStore";
 import OpenMap from "../OpenMap";
 import { SharedDataContext } from "../SharedData";
 
@@ -62,8 +60,6 @@ const ResalePage = () => {
     LONGITUDE: "103.841666679651",
   });
   const { isOpen, onOpen, onClose } = useDisclosure();
-
-  const { setResaleMounted } = useSharedStore();
 
   const handleSubmit = (Search) => {
     // console.log(Search);
@@ -152,8 +148,8 @@ const ResalePage = () => {
         ],
       }),
     });
-    const jsonData = await response.json();
-    console.log(jsonData);
+    // const jsonData = await response.json();
+    // console.log(jsonData);
 
     // const listData = jsonData.records.map((data) => ({
     //   ...data.fields,

@@ -5,7 +5,7 @@ import OfferData from "../OfferData";
 import { Button, Tooltip, useDisclosure } from "@chakra-ui/react";
 import AddOfferModal from "../AddOfferModal";
 import { PlusSquareIcon, AddIcon, WarningIcon } from "@chakra-ui/icons";
-import { useSharedStore } from "../SharedStore";
+
 import { SharedDataContext } from "../SharedData";
 
 function ResaleList() {
@@ -13,10 +13,6 @@ function ResaleList() {
   // const [offerList, setOfferList] = useState([]);
   const { resaleList, offerList, fetchResaleList, fetchOfferList } =
     useContext(SharedDataContext);
-
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
-  const { resaleMounted } = useSharedStore();
 
   const history = useHistory();
 
@@ -71,8 +67,8 @@ function ResaleList() {
         Authorization: `Bearer ${TOKEN}`,
       },
     });
-    const jsonData = await response.json();
-    console.log(jsonData);
+    // const jsonData = await response.json();
+    // console.log(jsonData);
 
     fetchResaleList();
 
@@ -115,8 +111,8 @@ function ResaleList() {
         ],
       }),
     });
-    const jsonData = await response.json();
-    console.log(jsonData);
+    // const jsonData = await response.json();
+    // console.log(jsonData);
     fetchOfferList();
 
     // const listData = jsonData.records.map((data) => ({
@@ -156,8 +152,8 @@ function ResaleList() {
         ],
       }),
     });
-    const jsonData = await response.json();
-    console.log(jsonData);
+    // const jsonData = await response.json();
+    // console.log(jsonData);
     fetchOfferList();
 
     // const listData = jsonData.records.map((data) => ({
@@ -195,7 +191,7 @@ function ResaleList() {
         },
       }),
     });
-    const jsonData = await response.json();
+    // const jsonData = await response.json();
     // console.log(jsonData);
     fetchOfferList();
 
@@ -218,7 +214,7 @@ function ResaleList() {
         Authorization: `Bearer ${TOKEN}`,
       },
     });
-    const jsonData = await response.json();
+    // const jsonData = await response.json();
     // console.log(jsonData);
 
     fetchOfferList();

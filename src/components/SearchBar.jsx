@@ -19,11 +19,11 @@ import ReplaceWords from "./ReplaceWords";
 function SearchBar({ search, onSearchSubmit }) {
   const [inputValue, setInputValue] = useState(search);
   const [addresses, setAddress] = useState([]);
-  const [street, setStreet] = useState("");
-  const [block, setBlock] = useState("");
-  const [Lat, setLat] = useState("");
-  const [Lon, setLon] = useState("");
-  const [post, setPost] = useState("");
+  // const [street, setStreet] = useState("");
+  // const [block, setBlock] = useState("");
+  // const [Lat, setLat] = useState("");
+  // const [Lon, setLon] = useState("");
+  // const [post, setPost] = useState("");
 
   const onSelect = (selectedAddress) => {
     const replacedAddress = ReplaceWords(selectedAddress);
