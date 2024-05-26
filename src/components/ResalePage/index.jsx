@@ -201,13 +201,13 @@ const ResalePage = () => {
         </CardBody>
       </Card> */}
       {resales && resales.length > 0 && (
-        <Box>
-          <Card borderRadius="lg" boxShadow="2xl">
-            <CardBody>
-              <ResaleChart resales={resales} />
-            </CardBody>
-          </Card>
-        </Box>
+        // <Box>
+        //   <Card borderRadius="lg" boxShadow="lg">
+        //     <CardBody>
+        <ResaleChart resales={resales} />
+        //     </CardBody>
+        //   </Card>
+        // </Box>
       )}
 
       <Button margin={3} onClick={onOpen}>
