@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Flex,
   FormControl,
@@ -70,7 +71,13 @@ function SearchBar({ search, onSearchSubmit }) {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <Flex minWidth="max-content" alignItems="center" gap="2">
+        <Flex
+          display="flex"
+          flexDirection="column"
+          // minWidth="max-content"
+          alignItems="center"
+          gap="2"
+        >
           <FormControl>
             <FormLabel>Find Resale by Street / Postal Code</FormLabel>
             {/* <Input type="text" value={inputValue} onChange={handleChange} /> */}
@@ -89,11 +96,23 @@ function SearchBar({ search, onSearchSubmit }) {
                 ))}
               </AutoCompleteList>
             </AutoComplete>
-            <FormHelperText>Results by Street / Postal Code</FormHelperText>
+            <FormHelperText>Choose from Suggestions</FormHelperText>
           </FormControl>
-          <Button mt={2} colorScheme="teal" type="submit">
+          {/* <Box
+            as="button"
+            p={2}
+            color="white"
+            fontWeight="bold"
+            borderRadius="md"
+            bgGradient="linear(to-r, teal.500, green.500)"
+            _hover={{
+              bgGradient: "linear(to-r, red.500, yellow.500)",
+            }}
+          > */}
+          <Button mt={2} colorScheme="teal" variant="outline" type="submit">
             Search
           </Button>
+          {/* </Box> */}
         </Flex>
       </form>
     </>

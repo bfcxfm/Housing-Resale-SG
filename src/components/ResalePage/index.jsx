@@ -33,6 +33,7 @@ import {
   Card,
   CardBody,
   Flex,
+  Text,
 } from "@chakra-ui/react";
 
 import { useContext, useEffect, useState } from "react";
@@ -163,14 +164,32 @@ const ResalePage = () => {
   // Return a table with the respective record fields as columns
   return (
     <div className="container">
-      <Card>
-        <CardBody>
-          <h1 className="text-4xl font-bold">{`HDB Resale Transaction`}</h1>
-          {/* <h2>{`${search.ADDRESS}`}</h2> */}
-          <SearchBar search={search} onSearchSubmit={handleSubmit} />
-        </CardBody>
-      </Card>
-      <OpenMap search={search} />
+      <Box width="100%">
+        <Card>
+          <CardBody>
+            <Text
+              bgGradient="linear(to-l, #7928CA, #FF0080)"
+              bgClip="text"
+              fontSize="5xl"
+              fontWeight="extrabold"
+            >
+              Discover Housing Resale Insight
+            </Text>
+            {/* <Text
+              bgGradient="linear(to-l, #7928CA, #FF0080)"
+              bgClip="text"
+              fontSize="xl"
+              fontWeight="regular"
+            >
+              type to discover
+            </Text> */}
+            {/* <h1 className="text-4xl font-bold">{`HDB Resale Transaction`}</h1> */}
+            {/* <h2>{`${search.ADDRESS}`}</h2> */}
+            <SearchBar search={search} onSearchSubmit={handleSubmit} />
+          </CardBody>
+        </Card>
+        <OpenMap search={search} />
+      </Box>
       {/* <Card width="75%">
         <CardBody>
           <Box
