@@ -100,7 +100,7 @@ function OfferData({ offerList, delOffer, editOffer, addOffer }) {
 
         <Tooltip
           hasArrow
-          label="or Clone from Below Transaction List"
+          label="or Clone from Below Saved Transaction List"
           bg="gray.300"
           color="black"
         >

@@ -14,8 +14,10 @@ import {
   CardBody,
   CardHeader,
   Heading,
+  Box,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import ExtLink from "./ExtLink";
 
 function ResaleTable({ resales, addResale, addList }) {
   const [updatedResales, setUpdatedResales] = useState([]);
@@ -49,6 +51,7 @@ function ResaleTable({ resales, addResale, addList }) {
         <Heading size="md">Transaction List</Heading>
       </CardHeader> */}
       <CardBody>
+        {}
         <TableContainer>
           <Table
             size="md"
@@ -82,17 +85,20 @@ function ResaleTable({ resales, addResale, addList }) {
                   <Td>{resale.floor_area_sqm}</Td>
                   <Td>{resale.resale_price}</Td>
                   <Td>
-                    <FormControl display="flex" alignItems="center">
-                      <FormLabel htmlFor="resale" mb="0"></FormLabel>
-                      {resale.isAdded ? (
-                        <Switch id={`${index}`} isChecked={resale.isAdded} />
-                      ) : (
-                        <Switch
-                          id={`${index}`}
-                          onChange={() => handleAddToList(resale._id)}
-                        />
-                      )}
-                    </FormControl>
+                    <Box display="flex" alignItems="center">
+                      <FormControl display="flex" alignItems="center">
+                        <FormLabel htmlFor="resale" mb="0"></FormLabel>
+                        {resale.isAdded ? (
+                          <Switch id={`${index}`} isChecked={resale.isAdded} />
+                        ) : (
+                          <Switch
+                            id={`${index}`}
+                            onChange={() => handleAddToList(resale._id)}
+                          />
+                        )}
+                      </FormControl>
+                      <ExtLink town={resale.town} street={resale.street_name} />
+                    </Box>
                   </Td>
                 </Tr>
               ))}
