@@ -43,6 +43,7 @@ import OfferData from "../OfferData";
 import { useDebounce } from "@uidotdev/usehooks";
 import OpenMap from "../OpenMap";
 import { SharedDataContext } from "../SharedData";
+import ResaleChart from "../ResaleChart";
 
 const ResalePage = () => {
   const { addList } = useContext(SharedDataContext);
@@ -68,7 +69,7 @@ const ResalePage = () => {
 
   async function fetchResales() {
     const BASE_URL =
-      "https://data.gov.sg/api/action/datastore_search?resource_id=d_8b84c4ee58e3cfc0ece0d773c8ca6abc&limit=20";
+      "https://data.gov.sg/api/action/datastore_search?resource_id=d_8b84c4ee58e3cfc0ece0d773c8ca6abc&limit=120";
 
     try {
       const response = await fetch(
@@ -180,6 +181,13 @@ const ResalePage = () => {
           ></Box>
         </CardBody>
       </Card> */}
+      <Box>
+        <Card>
+          <CardBody>
+            <ResaleChart resales={resales} />
+          </CardBody>
+        </Card>
+      </Box>
 
       <Button margin={3} onClick={onOpen}>
         My list
