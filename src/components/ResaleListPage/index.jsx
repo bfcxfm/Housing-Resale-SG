@@ -84,8 +84,8 @@ function ResaleList() {
     const TOKEN = import.meta.env.VITE_AIRTABLE_TOKEN;
     const BASE_URL = "https://api.airtable.com/v0/appufJw7hv6aH44fQ";
     const psf = parseFloat(props.resale) / parseFloat(props.area) / 10.764;
-    console.log(psf);
-    console.log(props._id);
+    // console.log(psf);
+    // console.log(props._id);
 
     const response = await fetch(`${BASE_URL}/offer/`, {
       method: "POST",
@@ -127,7 +127,7 @@ function ResaleList() {
     const TOKEN = import.meta.env.VITE_AIRTABLE_TOKEN;
     const BASE_URL = "https://api.airtable.com/v0/appufJw7hv6aH44fQ";
     const psf = parseFloat(props.resale) / parseFloat(props.area) / 10.764;
-    console.log(psf);
+    // console.log(psf);
 
     const response = await fetch(`${BASE_URL}/offer`, {
       method: "POST",
@@ -169,8 +169,8 @@ function ResaleList() {
     const BASE_URL = "https://api.airtable.com/v0/appufJw7hv6aH44fQ";
     const RECORDS = props.id;
     const psf = parseFloat(props.resale) / parseFloat(props.area) / 10.764;
-    console.log(psf);
-    console.log(RECORDS);
+    // console.log(psf);
+    // console.log(RECORDS);
 
     const response = await fetch(`${BASE_URL}/offer/${RECORDS}`, {
       method: "PATCH",

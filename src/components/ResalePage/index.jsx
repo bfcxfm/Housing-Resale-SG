@@ -118,12 +118,12 @@ const ResalePage = () => {
   async function addResale(props) {
     const TOKEN = import.meta.env.VITE_AIRTABLE_TOKEN;
     const BASE_URL = "https://api.airtable.com/v0/appufJw7hv6aH44fQ";
-    console.log(typeof props.id);
+    // console.log(typeof props.id);
     const psf =
       parseFloat(props.resale_price) /
       parseFloat(props.floor_area_sqm) /
       10.764;
-    console.log(psf);
+    // console.log(psf);
 
     const response = await fetch(`${BASE_URL}/list`, {
       method: "POST",

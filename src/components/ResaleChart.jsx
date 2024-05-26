@@ -20,25 +20,47 @@ ChartJS.register(
 );
 
 export default function ResaleChart({ resales }) {
+  let generatedColors = [];
+
   function getRandomColor() {
     let r, g, b;
     let contrast = 0;
+    let attempts = 0;
 
-    // Keep generating random colors until we find one with good contrast
-    while (contrast < 4.5) {
+    // Helper function to calculate luminance
+    const getLuminance = (r, g, b) =>
+      (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
+
+    // Helper function to calculate contrast ratio
+    const getContrastRatio = (lum1, lum2) =>
+      (Math.max(lum1, lum2) + 0.05) / (Math.min(lum1, lum2) + 0.05);
+
+    while (contrast < 4.5 && attempts < 100) {
       r = Math.floor(Math.random() * 255);
       g = Math.floor(Math.random() * 255);
       b = Math.floor(Math.random() * 255);
 
-      // Calculate the luminance and contrast ratio
-      const luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
-      const bgLuminance =
-        (0.2126 * (255 - r) + 0.7152 * (255 - g) + 0.0722 * (255 - b)) / 255;
-      contrast =
-        (Math.max(luminance, bgLuminance) + 0.05) /
-        (Math.min(luminance, bgLuminance) + 0.05);
+      const newLuminance = getLuminance(r, g, b);
+      contrast = generatedColors.reduce(
+        (minContrast, [existingR, existingG, existingB]) => {
+          const existingLuminance = getLuminance(
+            existingR,
+            existingG,
+            existingB
+          );
+          const currentContrast = getContrastRatio(
+            newLuminance,
+            existingLuminance
+          );
+          return Math.min(minContrast, currentContrast);
+        },
+        Infinity
+      );
+
+      attempts++;
     }
 
+    generatedColors.push([r, g, b]);
     return `rgb(${r}, ${g}, ${b}, 0.6)`;
   }
 

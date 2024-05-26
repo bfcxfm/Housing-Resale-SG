@@ -27,7 +27,7 @@ function SearchBar({ search, onSearchSubmit }) {
 
   const onSelect = (selectedAddress) => {
     const replacedAddress = ReplaceWords(selectedAddress);
-    console.log(replacedAddress);
+    // console.log(replacedAddress);
     onSearchSubmit(replacedAddress);
   };
 
