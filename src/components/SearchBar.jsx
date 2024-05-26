@@ -20,6 +20,8 @@ import ReplaceWords from "./ReplaceWords";
 function SearchBar({ search, onSearchSubmit }) {
   const [inputValue, setInputValue] = useState(search);
   const [addresses, setAddress] = useState([]);
+  const [autocompleteClicked, setAutocompleteClicked] = useState(false);
+
   // const [street, setStreet] = useState("");
   // const [block, setBlock] = useState("");
   // const [Lat, setLat] = useState("");
@@ -30,10 +32,12 @@ function SearchBar({ search, onSearchSubmit }) {
     const replacedAddress = ReplaceWords(selectedAddress);
     // console.log(replacedAddress);
     onSearchSubmit(replacedAddress);
+    setAutocompleteClicked(true);
   };
 
   const handleChange = (evt) => {
     setInputValue(evt.target.value);
+    setAutocompleteClicked(false);
   };
 
   const handleSubmit = (evt) => {
@@ -109,9 +113,11 @@ function SearchBar({ search, onSearchSubmit }) {
               bgGradient: "linear(to-r, red.500, yellow.500)",
             }}
           > */}
-          <Button mt={2} colorScheme="teal" variant="outline" type="submit">
-            Search
-          </Button>
+          {!autocompleteClicked && (
+            <Button mt={2} colorScheme="teal" variant="outline" type="submit">
+              Search
+            </Button>
+          )}
           {/* </Box> */}
         </Flex>
       </form>
