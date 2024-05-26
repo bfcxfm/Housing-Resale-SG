@@ -15,6 +15,7 @@ import {
   CardHeader,
   Heading,
   Box,
+  Button,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import ExtLink from "./ExtLink";
@@ -51,7 +52,6 @@ function ResaleTable({ resales, addResale, addList }) {
         <Heading size="md">Transaction List</Heading>
       </CardHeader> */}
       <CardBody>
-        {}
         <TableContainer>
           <Table
             size="md"
@@ -111,8 +111,13 @@ function ResaleTable({ resales, addResale, addList }) {
                 ))
               ) : (
                 <Tr>
-                  <Td colSpan="9" textAlign="center" color="red">
-                    No available Data at Location
+                  <Td colSpan="9" textAlign="center" color="gray">
+                    <Button
+                      isLoading
+                      loadingText="No available Data"
+                      colorScheme="blue"
+                      variant="ghost"
+                    ></Button>
                   </Td>
                 </Tr>
               )}
