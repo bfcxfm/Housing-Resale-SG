@@ -46,7 +46,7 @@ function ResaleTable({ resales, addResale, addList }) {
   // }));
 
   return (
-    <Card>
+    <Card borderRadius="lg" boxShadow="lg">
       {/* <CardHeader>
         <Heading size="md">Transaction List</Heading>
       </CardHeader> */}

@@ -108,6 +108,15 @@ export default function ResaleChart({ resales }) {
           displayFormats: { month: "YYYY-MM" },
         },
       },
+      y: {
+        ticks: {
+          // Include a callback function to format the y-axis labels
+          callback: function (value, index, values) {
+            // Convert the value to thousands (1000k)
+            return value / 1000 + "K";
+          },
+        },
+      },
     },
     plugins: {
       tooltip: {
@@ -117,7 +126,7 @@ export default function ResaleChart({ resales }) {
             const year = date.getFullYear();
             const month = String(date.getMonth() + 1).padStart(2, "0");
             return `${context.dataset.label}: ${year}-${month}, $${
-              context.parsed.y
+              context.parsed.y / 1000 + "K"
             }, ${context.raw.area}sqm, psf$${parseFloat(
               context.raw.r * 100
             ).toFixed(0)}`;

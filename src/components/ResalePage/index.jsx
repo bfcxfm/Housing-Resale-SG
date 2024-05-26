@@ -165,7 +165,7 @@ const ResalePage = () => {
   return (
     <div className="container">
       <Box width="100%">
-        <Card>
+        <Card borderRadius="lg" boxShadow="lg">
           <CardBody>
             <Text
               bgGradient="linear(to-l, #7928CA, #FF0080)"
@@ -173,7 +173,7 @@ const ResalePage = () => {
               fontSize="5xl"
               fontWeight="extrabold"
             >
-              Discover Housing Resale Insight
+              Discover Housing Resale Price Insight
             </Text>
             {/* <Text
               bgGradient="linear(to-l, #7928CA, #FF0080)"
@@ -201,7 +201,7 @@ const ResalePage = () => {
         </CardBody>
       </Card> */}
       <Box>
-        <Card>
+        <Card borderRadius="lg">
           <CardBody>
             <ResaleChart resales={resales} />
           </CardBody>
