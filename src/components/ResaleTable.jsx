@@ -74,34 +74,48 @@ function ResaleTable({ resales, addResale, addList }) {
               </Tr>
             </Thead>
             <Tbody>
-              {updatedResales.map((resale, index) => (
-                <Tr key={`${index}-${resale.isAdded}`}>
-                  <Td>{resale.month}</Td>
-                  <Td>{resale.block}</Td>
-                  <Td>{resale.street_name}</Td>
-                  <Td>{resale.town}</Td>
-                  <Td>{resale.flat_type}</Td>
-                  <Td>{resale.storey_range}</Td>
-                  <Td>{resale.floor_area_sqm}</Td>
-                  <Td>{resale.resale_price}</Td>
-                  <Td>
-                    <Box display="flex" alignItems="center">
-                      <FormControl display="flex" alignItems="center">
-                        <FormLabel htmlFor="resale" mb="0"></FormLabel>
-                        {resale.isAdded ? (
-                          <Switch id={`${index}`} isChecked={resale.isAdded} />
-                        ) : (
-                          <Switch
-                            id={`${index}`}
-                            onChange={() => handleAddToList(resale._id)}
-                          />
-                        )}
-                      </FormControl>
-                      <ExtLink town={resale.town} street={resale.street_name} />
-                    </Box>
+              {updatedResales.length > 0 ? (
+                updatedResales.map((resale, index) => (
+                  <Tr key={`${index}-${resale.isAdded}`}>
+                    <Td>{resale.month}</Td>
+                    <Td>{resale.block}</Td>
+                    <Td>{resale.street_name}</Td>
+                    <Td>{resale.town}</Td>
+                    <Td>{resale.flat_type}</Td>
+                    <Td>{resale.storey_range}</Td>
+                    <Td>{resale.floor_area_sqm}</Td>
+                    <Td>{resale.resale_price}</Td>
+                    <Td>
+                      <Box display="flex" alignItems="center">
+                        <FormControl display="flex" alignItems="center">
+                          <FormLabel htmlFor="resale" mb="0"></FormLabel>
+                          {resale.isAdded ? (
+                            <Switch
+                              id={`${index}`}
+                              isChecked={resale.isAdded}
+                            />
+                          ) : (
+                            <Switch
+                              id={`${index}`}
+                              onChange={() => handleAddToList(resale._id)}
+                            />
+                          )}
+                        </FormControl>
+                        <ExtLink
+                          town={resale.town}
+                          street={resale.street_name}
+                        />
+                      </Box>
+                    </Td>
+                  </Tr>
+                ))
+              ) : (
+                <Tr>
+                  <Td colSpan="9" textAlign="center" color="red">
+                    No available Data at Location
                   </Td>
                 </Tr>
-              ))}
+              )}
             </Tbody>
           </Table>
         </TableContainer>

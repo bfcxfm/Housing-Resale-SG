@@ -163,7 +163,7 @@ const ResalePage = () => {
 
   // Return a table with the respective record fields as columns
   return (
-    <div className="container">
+    <div>
       <Box width="100%">
         <Card borderRadius="lg" boxShadow="lg">
           <CardBody>
@@ -188,7 +188,7 @@ const ResalePage = () => {
             <SearchBar search={search} onSearchSubmit={handleSubmit} />
           </CardBody>
         </Card>
-        <OpenMap search={search} />
+        {resales && resales.length > 0 && <OpenMap search={search} />}
       </Box>
       {/* <Card width="75%">
         <CardBody>
@@ -200,13 +200,15 @@ const ResalePage = () => {
           ></Box>
         </CardBody>
       </Card> */}
-      <Box>
-        <Card borderRadius="lg">
-          <CardBody>
-            <ResaleChart resales={resales} />
-          </CardBody>
-        </Card>
-      </Box>
+      {resales && resales.length > 0 && (
+        <Box>
+          <Card borderRadius="lg" boxShadow="2xl">
+            <CardBody>
+              <ResaleChart resales={resales} />
+            </CardBody>
+          </Card>
+        </Box>
+      )}
 
       <Button margin={3} onClick={onOpen}>
         My list

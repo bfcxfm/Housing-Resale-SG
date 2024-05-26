@@ -16,6 +16,9 @@ L.Icon.Default.mergeOptions({
 });
 
 export default function OpenMap({ search }) {
+  if (!search.LATITUDE || !search.LONGITUDE) {
+    return null; // Return null if search.LATITUDE or search.LONGITUDE is not available
+  }
   const MapView = ({ search }) => {
     const map = useMap();
 
