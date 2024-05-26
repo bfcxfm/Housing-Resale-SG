@@ -43,7 +43,7 @@ function SearchBar({ search, onSearchSubmit }) {
   const debouncedSearchTerm = useDebounce(inputValue, 300);
 
   async function fetchAddress() {
-    const BASE_URL = "https:/www.onemap.gov.sg/api/common/elastic/search?";
+    const BASE_URL = "https://www.onemap.gov.sg/api/common/elastic/search?";
     const response = await fetch(
       `${BASE_URL}searchVal=${inputValue}&returnGeom=Y&getAddrDetails=Y&pageNum=1`,
       {
