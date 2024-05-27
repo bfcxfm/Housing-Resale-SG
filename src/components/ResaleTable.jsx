@@ -125,6 +125,7 @@ function ResaleTable({ resales, addResale, addList, search, onFilterSubmit }) {
                   <Select
                     placeholder="TYPE"
                     size="xs"
+                    style={{ width: "5rem" }}
                     onChange={(option) => onOptionChange(option)}
                   >
                     {typeOptions
