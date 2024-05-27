@@ -34,7 +34,7 @@ function ResaleData({ resaleList, delResale, cloneResale }) {
             variant="striped"
             colorScheme="blackAlpha"
           >
-            <TableCaption placement="top">
+            <TableCaption placement="top" textAlign="left">
               Saved Market Transaction List
             </TableCaption>
             <Thead>
