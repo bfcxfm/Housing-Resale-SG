@@ -109,7 +109,7 @@ function ResaleTable({ resales, addResale, addList, search, onFilterSubmit }) {
       <CardBody>
         <TableContainer>
           <Table
-            size="md"
+            size={{ base: "sm", md: "md" }}
             variant="striped"
             colorScheme="blackAlpha"
             overflowX="auto"

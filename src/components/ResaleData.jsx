@@ -29,8 +29,14 @@ function ResaleData({ resaleList, delResale, cloneResale }) {
     <Card mt={"3rem"}>
       <CardBody>
         <TableContainer>
-          <Table size="md" variant="striped" colorScheme="blackAlpha">
-            <TableCaption>Saved Market Transaction List</TableCaption>
+          <Table
+            size={{ base: "sm", md: "md" }}
+            variant="striped"
+            colorScheme="blackAlpha"
+          >
+            <TableCaption placement="top">
+              Saved Market Transaction List
+            </TableCaption>
             <Thead>
               <Tr>
                 <Th>Month</Th>

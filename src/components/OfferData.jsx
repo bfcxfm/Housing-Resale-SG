@@ -55,7 +55,11 @@ function OfferData({ offerList, delOffer, editOffer, addOffer }) {
     <Card>
       <CardBody>
         <TableContainer>
-          <Table size="md" variant="striped" colorScheme="blackAlpha">
+          <Table
+            size={{ base: "sm", md: "md" }}
+            variant="striped"
+            colorScheme="blackAlpha"
+          >
             <TableCaption></TableCaption>
             <Thead>
               <Tr>
