@@ -18,7 +18,7 @@ import { useDebounce } from "@uidotdev/usehooks";
 import ReplaceWords from "./ReplaceWords";
 
 function SearchBar({ search, onSearchSubmit }) {
-  const [inputValue, setInputValue] = useState(search);
+  const [inputValue, setInputValue] = useState(search.ADDRESS);
   const [addresses, setAddress] = useState([]);
   const [autocompleteClicked, setAutocompleteClicked] = useState(false);
 

@@ -16,12 +16,16 @@ import {
   Heading,
   Box,
   Button,
+  Select,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import ExtLink from "./ExtLink";
+import { ArrowUpDownIcon } from "@chakra-ui/icons";
 
-function ResaleTable({ resales, addResale, addList }) {
+function ResaleTable({ resales, addResale, addList, search, onFilterSubmit }) {
   const [updatedResales, setUpdatedResales] = useState([]);
+  // const [selectedOption, setSelectedOption] = useState("");
+  // const [typeOptions, setTypeOptions] = useState([]);
 
   useEffect(() => {
     // Update updatedResales whenever resales or addList changes
@@ -39,6 +43,57 @@ function ResaleTable({ resales, addResale, addList }) {
     );
     setUpdatedResales(updatedResalesCopy);
     addResale(updatedResalesCopy.find((resale) => resale._id === resaleId));
+  };
+
+  // useEffect to calculate and set typeOptions on component mount
+  // useEffect(() => {
+  //   const initialTypeOptions = Object.keys(
+  //     updatedResales.reduce((acc, item) => {
+  //       const { flat_type } = item;
+  //       acc[flat_type] = true;
+  //       return acc;
+  //     }, {})
+  //   );
+  //   setTypeOptions(initialTypeOptions);
+  // }, []);
+
+  // useEffect to update typeOptions when search changes
+  // useEffect(() => {
+  //   const newTypeOptions = Object.keys(
+  //     updatedResales.reduce((acc, item) => {
+  //       const { flat_type } = item;
+  //       acc[flat_type] = true;
+  //       return acc;
+  //     }, {})
+  //   );
+  //   setTypeOptions(newTypeOptions);
+  // }, [search.ADDRESS]);
+
+  const typeOptions = Object.keys(
+    updatedResales.reduce((acc, item) => {
+      const { flat_type } = item;
+      acc[flat_type] = true;
+      return acc;
+    }, {})
+  );
+
+  // console.log(typeOptions);
+
+  const onOptionChange = (option) => {
+    const selectedOption = option.target.value;
+    // console.log(selectedOption);
+    // setSelectedOption(selectedOption);
+    onFilterSubmit({
+      ...search, // spread the current state
+      TYPE: selectedOption, // update the TYPE property to the new value
+    });
+  };
+
+  const handleSort = () => {
+    onFilterSubmit({
+      ...search, // spread the current state
+      STOREY: search.STOREY === true ? false : true, // toggle the value of STOREY
+    });
   };
 
   // const updatedResales = resales.map((resale) => ({
@@ -66,8 +121,25 @@ function ResaleTable({ resales, addResale, addList }) {
                 <Th>Block</Th>
                 <Th>Street</Th>
                 <Th>Town</Th>
-                <Th>Type</Th>
-                <Th>Storey</Th>
+                <Th>
+                  <Select
+                    placeholder="TYPE"
+                    size="xs"
+                    onChange={(option) => onOptionChange(option)}
+                  >
+                    {typeOptions
+                      .sort((a, b) => a.localeCompare(b))
+                      .map((option, index) => (
+                        <option key={index} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                    <option value="">ALL</option> {/* Empty option */}
+                  </Select>
+                </Th>
+                <Th onClick={() => handleSort()} style={{ cursor: "pointer" }}>
+                  Storey <ArrowUpDownIcon mb="3px" />
+                </Th>
                 <Th>Area m²</Th>
                 <Th>Resale S$</Th>
                 <Th>Add to List</Th>

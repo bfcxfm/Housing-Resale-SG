@@ -56,6 +56,7 @@ const ResalePage = () => {
     BUILDING: "THE PINNACLE@DUXTON",
     ADDRESS: "1C CANTONMENT ROAD THE PINNACLE@DUXTON SINGAPORE 085301",
     POSTAL: "085301",
+    TYPE: "",
     X: "28929.0768545093",
     Y: "28879.3522476424",
     LATITUDE: "1.27744909387079",
@@ -73,8 +74,82 @@ const ResalePage = () => {
       "https://data.gov.sg/api/action/datastore_search?resource_id=d_8b84c4ee58e3cfc0ece0d773c8ca6abc&limit=120";
 
     try {
+      // const response = await fetch(
+      //   `${BASE_URL}&q={"block":"${search.BLK_NO}","street_name":"${search.ROAD_NAME}","flat_type":"${search.TYPE}"}&sort=_id desc`,
+      //   {
+      //     method: "GET",
+      //     headers: {},
+      //   }
+      // );
+
+      let url;
+      const baseQuery = {
+        block: search.BLK_NO,
+        street_name: search.ROAD_NAME,
+      };
+
+      if (search.TYPE) {
+        baseQuery.flat_type = search.TYPE;
+      }
+
+      const queryStr = encodeURIComponent(JSON.stringify(baseQuery));
+
+      if (search.hasOwnProperty("STOREY")) {
+        if (search.STOREY === true) {
+          url = `${BASE_URL}&q=${queryStr}&sort=storey_range desc,_id desc`;
+        } else {
+          url = `${BASE_URL}&q=${queryStr}&sort=storey_range asc,_id desc`;
+        }
+      } else {
+        // Handle the case when search.STOREY does not exist
+        url = `${BASE_URL}&q=${queryStr}&sort=_id desc`;
+      }
+
+      // console.log(url);
+
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {},
+      });
+      const jsonData = await response.json();
+      // console.log(jsonData.result.total);
+
+      if (jsonData.result.total !== 0) {
+        const resaleData = jsonData.result.records.map((data) => ({
+          ...data,
+          id: data._id,
+        }));
+        setResale(resaleData);
+      } else {
+        const response = await fetch(
+          `${BASE_URL}&q={"street_name":"${search.ROAD_NAME}"}&sort=_id desc`,
+          {
+            method: "GET",
+            headers: {},
+          }
+        );
+        const jsonData = await response.json();
+        const resaleData = jsonData.result.records.map((data) => ({
+          ...data,
+          id: data._id,
+        }));
+        setResale(resaleData);
+      }
+    } catch (error) {
+      // Handle any errors that occur during fetch
+      console.error("Error fetching resale data:", error);
+    }
+
+    // console.log(resales);
+  }
+
+  async function fetchResalesType() {
+    const BASE_URL =
+      "https://data.gov.sg/api/action/datastore_search?resource_id=d_8b84c4ee58e3cfc0ece0d773c8ca6abc&limit=120";
+
+    try {
       const response = await fetch(
-        `${BASE_URL}&q={"block":"${search.BLK_NO}","street_name":"${search.ROAD_NAME}"}&sort=_id desc`,
+        `${BASE_URL}&q={"block":"${search.BLK_NO}","street_name":"${search.ROAD_NAME}",}&sort=_id desc`,
         {
           method: "GET",
           headers: {},
@@ -240,7 +315,13 @@ const ResalePage = () => {
           </ModalFooter>
         </ModalContent>
       </Modal>
-      <ResaleTable resales={resales} addResale={addResale} addList={addList} />
+      <ResaleTable
+        resales={resales}
+        addResale={addResale}
+        addList={addList}
+        search={search}
+        onFilterSubmit={handleSubmit}
+      />
     </div>
   );
 };

@@ -84,6 +84,7 @@ export default function ResaleChart({ resales }) {
             100
         ).toFixed(4),
         area: item["floor_area_sqm"],
+        storey: item["storey_range"],
       });
       return acc;
     }, {})
@@ -127,9 +128,9 @@ export default function ResaleChart({ resales }) {
             const month = String(date.getMonth() + 1).padStart(2, "0");
             return `${context.dataset.label}: ${year}-${month}, $${
               context.parsed.y / 1000 + "K"
-            }, ${context.raw.area}sqm, psf$${parseFloat(
-              context.raw.r * 100
-            ).toFixed(0)}`;
+            }, ${context.raw.storey} STOREY, ${
+              context.raw.area
+            } M², PSF $${parseFloat(context.raw.r * 100).toFixed(0)}`;
           },
         },
       },
