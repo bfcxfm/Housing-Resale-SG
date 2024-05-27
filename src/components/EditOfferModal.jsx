@@ -64,7 +64,7 @@ const EditOfferModal = ({ isOpen, onClose, editOffer, delOffer, resale }) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent rounded="lg">
         <ModalHeader>Add Expected Price</ModalHeader>
         <ModalCloseButton />
         <ModalBody

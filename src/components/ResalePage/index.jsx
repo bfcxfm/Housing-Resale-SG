@@ -382,9 +382,8 @@ const ResalePage = () => {
           // maxH="80vh"
           // w="auto"
           maxW={{ base: "90%", md: "90%", lg: "90%" }}
-          borderRadius="lg"
-          boxShadow="lg"
-          p={4}
+          boxShadow="dark-lg"
+          rounded="lg"
         >
           <ModalHeader></ModalHeader>
           <ModalCloseButton />
