@@ -1,4 +1,11 @@
-import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
+import {
+  AttributionControl,
+  MapContainer,
+  Marker,
+  Popup,
+  TileLayer,
+  useMap,
+} from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { useEffect } from "react";
 import { Box } from "@chakra-ui/react";
@@ -43,6 +50,7 @@ export default function OpenMap({ search }) {
         center={[`${search.LATITUDE}`, `${search.LONGITUDE}`]}
         scrollWheelZoom={false}
         style={{ zIndex: 1 }}
+        attributionControl={false}
       >
         <TileLayer
           detectRetina={true}
@@ -51,6 +59,7 @@ export default function OpenMap({ search }) {
           attribution='<img src="https://www.onemap.gov.sg/web-assets/images/logo/om_logo.png" style="height:20px;width:20px;"/>'
           url="https://www.onemap.gov.sg/maps/tiles/Default/{z}/{x}/{y}.png"
         />
+        <AttributionControl position="bottomright" prefix={false} />
         <MapView search={search} />
       </MapContainer>
     </Box>
