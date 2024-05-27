@@ -45,6 +45,7 @@ import { useDebounce } from "@uidotdev/usehooks";
 import OpenMap from "../OpenMap";
 import { SharedDataContext } from "../SharedData";
 import ResaleChart from "../ResaleChart";
+import { HamburgerIcon } from "@chakra-ui/icons";
 
 const ResalePage = () => {
   const { addList } = useContext(SharedDataContext);
@@ -337,10 +338,37 @@ const ResalePage = () => {
         //   </Card>
         // </Box>
       )}
+      {/* <Box>
+        <Text
+          bgGradient="linear(to-r, cyan.400, purple.400)"
+          bgClip="text"
+          fontSize="3xl"
+          fontWeight="bold"
+          style={{ cursor: "pointer" }}
+          onClick={onOpen}
+        >
+          <HamburgerIcon boxSize={6} mr={2} />
+          Click Here for my Saved List
+        </Text>
+      </Box> */}
 
-      <Button margin={3} onClick={onOpen}>
-        My list
-      </Button>
+      <Box
+        as="button"
+        p={4}
+        bgClip="text"
+        fontWeight="bold"
+        fontSize="3xl"
+        borderRadius="md"
+        onClick={onOpen}
+        bgGradient="linear(to-r, cyan.400, purple.400)"
+        _hover={{
+          bgGradient: "linear(to-r, red.500, yellow.500)",
+        }}
+      >
+        <Text>CLICK ME</Text>
+        <Text fontSize="xs">FOR SAVED LIST</Text>
+      </Box>
+
       <Modal
         onClose={onClose}
         isOpen={isOpen}

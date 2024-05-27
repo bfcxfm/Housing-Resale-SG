@@ -2,7 +2,7 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import ResaleData from "../ResaleData";
 import { useContext, useEffect, useState } from "react";
 import OfferData from "../OfferData";
-import { Button, Tooltip, useDisclosure } from "@chakra-ui/react";
+import { Button, Text, Tooltip, useDisclosure } from "@chakra-ui/react";
 import AddOfferModal from "../AddOfferModal";
 import { PlusSquareIcon, AddIcon, WarningIcon } from "@chakra-ui/icons";
 
@@ -235,7 +235,12 @@ function ResaleList() {
   // Return a table with the respective record fields as columns
   return (
     <div className="container">
-      <h1 className="text-3xl font-bold">{`My Resale List`}</h1>
+      <Text
+        bgGradient="linear(to-r, cyan.400, purple.400)"
+        bgClip="text"
+        fontSize="3xl"
+        fontWeight="extrabold"
+      >{`My Saved Resale List`}</Text>
       <OfferData
         offerList={offerList}
         addOffer={addOffer}
