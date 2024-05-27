@@ -69,30 +69,127 @@ const ResalePage = () => {
     setSearch(Search);
   };
 
+  // async function fetchResales() {
+  //   const BASE_URL =
+  //     "https://data.gov.sg/api/action/datastore_search?resource_id=d_8b84c4ee58e3cfc0ece0d773c8ca6abc&limit=120";
+
+  //   try {
+  //     // const response = await fetch(
+  //     //   `${BASE_URL}&q={"block":"${search.BLK_NO}","street_name":"${search.ROAD_NAME}","flat_type":"${search.TYPE}"}&sort=_id desc`,
+  //     //   {
+  //     //     method: "GET",
+  //     //     headers: {},
+  //     //   }
+  //     // );
+
+  //     let url;
+  //     const baseQuery = {
+  //       block: search.BLK_NO,
+  //       street_name: search.ROAD_NAME,
+  //     };
+
+  //     if (search.TYPE) {
+  //       baseQuery.flat_type = search.TYPE;
+  //     }
+
+  //     const queryStr = encodeURIComponent(JSON.stringify(baseQuery));
+
+  //     if (search.hasOwnProperty("STOREY")) {
+  //       if (search.STOREY === true) {
+  //         url = `${BASE_URL}&q=${queryStr}&sort=storey_range desc,_id desc`;
+  //       } else {
+  //         url = `${BASE_URL}&q=${queryStr}&sort=storey_range asc,_id desc`;
+  //       }
+  //     } else {
+  //       // Handle the case when search.STOREY does not exist
+  //       url = `${BASE_URL}&q=${queryStr}&sort=_id desc`;
+  //     }
+
+  //     console.log(url);
+
+  //     const response = await fetch(url, {
+  //       method: "GET",
+  //       headers: {},
+  //     });
+  //     const jsonData = await response.json();
+  //     // console.log(jsonData.result.total);
+
+  //     if (jsonData.result.total !== 0) {
+  //       const resaleData = jsonData.result.records.map((data) => ({
+  //         ...data,
+  //         id: data._id,
+  //       }));
+  //       setResale(resaleData);
+  //     } else {
+  //       if (search.hasOwnProperty("STOREY")) {
+  //         if (search.STOREY === true) {
+  //           const fallbackUrl = `${BASE_URL}&q={"street_name":"${search.ROAD_NAME}"}&sort=storey_range desc, _id desc`;
+  //           const fallbackResponse = await fetch(fallbackUrl, {
+  //             method: "GET",
+  //             headers: {},
+  //           });
+  //           const fallbackJsonData = await fallbackResponse.json();
+  //           const resaleData = fallbackJsonData.result.records.map((data) => ({
+  //             ...data,
+  //             id: data._id,
+  //           }));
+  //           setResale(resaleData);
+  //         } else if (search.STOREY === false) {
+  //           const fallbackUrl = `${BASE_URL}&q={"street_name":"${search.ROAD_NAME}"}&sort=storey_range asc, _id desc`;
+  //           const fallbackResponse = await fetch(fallbackUrl, {
+  //             method: "GET",
+  //             headers: {},
+  //           });
+  //           const fallbackJsonData = await fallbackResponse.json();
+  //           const resaleData = fallbackJsonData.result.records.map((data) => ({
+  //             ...data,
+  //             id: data._id,
+  //           }));
+  //           setResale(resaleData);
+  //         } else {
+  //           const response = await fetch(
+  //             `${BASE_URL}&q={"street_name":"${search.ROAD_NAME}"}&sort=_id desc`,
+  //             {
+  //               method: "GET",
+  //               headers: {},
+  //             }
+  //           );
+  //           const jsonData = await response.json();
+  //           const resaleData = jsonData.result.records.map((data) => ({
+  //             ...data,
+  //             id: data._id,
+  //           }));
+  //           setResale(resaleData); // Set empty array if no results found and STOREY is not specified
+  //         }
+  //       }
+  //     }
+  //   } catch (error) {
+  //     // Handle any errors that occur during fetch
+  //     console.error("Error fetching resale data:", error);
+  //   }
+
+  //   // console.log(resales);
+  // }
+
   async function fetchResales() {
     const BASE_URL =
       "https://data.gov.sg/api/action/datastore_search?resource_id=d_8b84c4ee58e3cfc0ece0d773c8ca6abc&limit=120";
 
     try {
-      // const response = await fetch(
-      //   `${BASE_URL}&q={"block":"${search.BLK_NO}","street_name":"${search.ROAD_NAME}","flat_type":"${search.TYPE}"}&sort=_id desc`,
-      //   {
-      //     method: "GET",
-      //     headers: {},
-      //   }
-      // );
-
       let url;
-      const baseQuery = {
-        block: search.BLK_NO,
+      let query = {
         street_name: search.ROAD_NAME,
       };
 
+      if (search.BLK_NO) {
+        query.block = search.BLK_NO;
+      }
       if (search.TYPE) {
-        baseQuery.flat_type = search.TYPE;
+        query.flat_type = search.TYPE;
       }
 
-      const queryStr = encodeURIComponent(JSON.stringify(baseQuery));
+      const queryStr = encodeURIComponent(JSON.stringify(query));
+      // console.log(queryStr);
 
       if (search.hasOwnProperty("STOREY")) {
         if (search.STOREY === true) {
@@ -111,50 +208,6 @@ const ResalePage = () => {
         method: "GET",
         headers: {},
       });
-      const jsonData = await response.json();
-      // console.log(jsonData.result.total);
-
-      if (jsonData.result.total !== 0) {
-        const resaleData = jsonData.result.records.map((data) => ({
-          ...data,
-          id: data._id,
-        }));
-        setResale(resaleData);
-      } else {
-        const response = await fetch(
-          `${BASE_URL}&q={"street_name":"${search.ROAD_NAME}"}&sort=_id desc`,
-          {
-            method: "GET",
-            headers: {},
-          }
-        );
-        const jsonData = await response.json();
-        const resaleData = jsonData.result.records.map((data) => ({
-          ...data,
-          id: data._id,
-        }));
-        setResale(resaleData);
-      }
-    } catch (error) {
-      // Handle any errors that occur during fetch
-      console.error("Error fetching resale data:", error);
-    }
-
-    // console.log(resales);
-  }
-
-  async function fetchResalesType() {
-    const BASE_URL =
-      "https://data.gov.sg/api/action/datastore_search?resource_id=d_8b84c4ee58e3cfc0ece0d773c8ca6abc&limit=120";
-
-    try {
-      const response = await fetch(
-        `${BASE_URL}&q={"block":"${search.BLK_NO}","street_name":"${search.ROAD_NAME}",}&sort=_id desc`,
-        {
-          method: "GET",
-          headers: {},
-        }
-      );
       const jsonData = await response.json();
       // console.log(jsonData.result.total);
 
