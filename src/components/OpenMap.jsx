@@ -13,6 +13,7 @@ import L from "leaflet";
 import iconUrl from "leaflet/dist/images/marker-icon.png";
 import iconRetinaUrl from "leaflet/dist/images/marker-icon-2x.png";
 import shadowUrl from "leaflet/dist/images/marker-shadow.png";
+import { useMediaQuery } from "@chakra-ui/react";
 
 delete L.Icon.Default.prototype._getIconUrl;
 
@@ -23,6 +24,12 @@ L.Icon.Default.mergeOptions({
 });
 
 export default function OpenMap({ search }) {
+  const [isDarkMode] = useMediaQuery("(prefers-color-scheme: dark)");
+
+  const mapUrl = isDarkMode
+    ? "https://www.onemap.gov.sg/maps/tiles/Night/{z}/{x}/{y}.png"
+    : "https://www.onemap.gov.sg/maps/tiles/Default/{z}/{x}/{y}.png";
+
   if (!search.LATITUDE || !search.LONGITUDE) {
     return null; // Return null if search.LATITUDE or search.LONGITUDE is not available
   }
@@ -57,7 +64,7 @@ export default function OpenMap({ search }) {
           maxZoom={19}
           minZoom={11}
           attribution='<img src="https://www.onemap.gov.sg/web-assets/images/logo/om_logo.png" style="height:20px;width:20px;"/>'
-          url="https://www.onemap.gov.sg/maps/tiles/Default/{z}/{x}/{y}.png"
+          url={mapUrl}
         />
         <AttributionControl position="bottomright" prefix={false} />
         <MapView search={search} />
