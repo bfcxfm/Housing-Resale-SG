@@ -37,9 +37,9 @@ export default function ResaleChart({ resales }) {
       (Math.max(lum1, lum2) + 0.05) / (Math.min(lum1, lum2) + 0.05);
 
     while (contrastWithBlack < 4.5 && attempts < 100) {
-      r = Math.floor(Math.random() * 155) + 100; // Limit the range to 100-255 for more vibrance
-      g = Math.floor(Math.random() * 155) + 100; // Limit the range to 100-255 for more vibrance
-      b = Math.floor(Math.random() * 155) + 100; // Limit the range to 100-255 for more vibrance
+      r = Math.floor(Math.random() * 255);
+      g = Math.floor(Math.random() * 255);
+      b = Math.floor(Math.random() * 255);
 
       const newLuminance = getLuminance(r, g, b);
       const blackLuminance = getLuminance(26, 32, 44);
