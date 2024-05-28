@@ -75,7 +75,7 @@ export default function ResaleChart({ resales }) {
     }
 
     generatedColors.push([r, g, b]);
-    return `rgba(${r}, ${g}, ${b}, 0.6)`;
+    return `rgba(${r}, ${g}, ${b}, 0.5)`;
   }
 
   // function getRandomColor() {
