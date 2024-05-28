@@ -25,7 +25,7 @@ export default function ResaleChart({ resales }) {
   function getRandomColor() {
     let r, g, b;
     let contrastWithBlack = 0;
-    let contrastWithWhite = 0;
+    // let contrastWithWhite = 0;
     let attempts = 0;
 
     // Helper function to calculate luminance
@@ -36,20 +36,17 @@ export default function ResaleChart({ resales }) {
     const getContrastRatio = (lum1, lum2) =>
       (Math.max(lum1, lum2) + 0.05) / (Math.min(lum1, lum2) + 0.05);
 
-    while (
-      (contrastWithBlack < 4.5 || contrastWithWhite < 4.5) &&
-      attempts < 100
-    ) {
+    while (contrastWithBlack < 4.5 && attempts < 100) {
       r = Math.floor(Math.random() * 255);
       g = Math.floor(Math.random() * 255);
       b = Math.floor(Math.random() * 255);
 
       const newLuminance = getLuminance(r, g, b);
       const blackLuminance = getLuminance(26, 32, 44);
-      const whiteLuminance = getLuminance(255, 255, 255);
+      // const whiteLuminance = getLuminance(255, 255, 255);
 
       contrastWithBlack = getContrastRatio(newLuminance, blackLuminance);
-      contrastWithWhite = getContrastRatio(newLuminance, whiteLuminance);
+      // contrastWithWhite = getContrastRatio(newLuminance, whiteLuminance);
 
       // Ensure the new color also has a minimum contrast with existing generated colors
       const contrastWithGeneratedColors = generatedColors.reduce(
@@ -73,13 +70,85 @@ export default function ResaleChart({ resales }) {
         attempts++;
       } else {
         contrastWithBlack = 0;
-        contrastWithWhite = 0;
+        // contrastWithWhite = 0;
       }
     }
 
     generatedColors.push([r, g, b]);
-    return `rgb(${r}, ${g}, ${b}, 0.6)`;
+    return `rgba(${r}, ${g}, ${b}, 0.6)`;
   }
+
+  // function getRandomColor() {
+  //   let h, s, l;
+  //   let contrastWithBlack = 0;
+  //   let contrastWithWhite = 0;
+  //   let attempts = 0;
+
+  //   // Helper function to calculate luminance directly from HSL
+  //   const getLuminanceFromHSL = (h, s, l) => {
+  //     s /= 100;
+  //     l /= 100;
+  //     const a = s * Math.min(l, 1 - l);
+  //     const f = (n) =>
+  //       l -
+  //       a *
+  //         Math.max(
+  //           Math.min(((n + h / 30) % 12) - 3, 9 - ((n + h / 30) % 12), 1),
+  //           -1
+  //         );
+  //     return 0.2126 * f(0) + 0.7152 * f(8) + 0.0722 * f(4);
+  //   };
+
+  //   // Pre-calculate black and white luminance
+  //   const blackLuminance = getLuminanceFromHSL(0, 0, 11); // Approx. RGB(26, 32, 44)
+  //   const whiteLuminance = getLuminanceFromHSL(0, 0, 100); // RGB(255, 255, 255)
+
+  //   // Helper function to calculate contrast ratio
+  //   const getContrastRatio = (lum1, lum2) =>
+  //     (Math.max(lum1, lum2) + 0.05) / (Math.min(lum1, lum2) + 0.05);
+
+  //   while (
+  //     (contrastWithBlack < 4.5 || contrastWithWhite < 4.5) &&
+  //     attempts < 100
+  //   ) {
+  //     h = Math.floor(Math.random() * 360);
+  //     s = Math.floor(Math.random() * 61) + 40; // Saturation between 40-100 for vibrancy
+  //     l = Math.floor(Math.random() * 41) + 30; // Lightness between 30-70 for vibrancy
+
+  //     const newLuminance = getLuminanceFromHSL(h, s, l);
+
+  //     contrastWithBlack = getContrastRatio(newLuminance, blackLuminance);
+  //     contrastWithWhite = getContrastRatio(newLuminance, whiteLuminance);
+
+  //     // Ensure the new color also has a minimum contrast with existing generated colors
+  //     const contrastWithGeneratedColors = generatedColors.reduce(
+  //       (minContrast, [existingH, existingS, existingL]) => {
+  //         const existingLuminance = getLuminanceFromHSL(
+  //           existingH,
+  //           existingS,
+  //           existingL
+  //         );
+  //         const currentContrast = getContrastRatio(
+  //           newLuminance,
+  //           existingLuminance
+  //         );
+  //         return Math.min(minContrast, currentContrast);
+  //       },
+  //       Infinity
+  //     );
+
+  //     // Ensure contrast with generated colors is also sufficient
+  //     if (contrastWithGeneratedColors >= 4.5) {
+  //       attempts++;
+  //     } else {
+  //       contrastWithBlack = 0;
+  //       contrastWithWhite = 0;
+  //     }
+  //   }
+
+  //   generatedColors.push([h, s, l]);
+  //   return `hsla(${h}, ${s}%, ${l}%, 0.6)`;
+  // }
 
   const bubbleData = Object.values(
     resales.reduce((acc, item) => {
