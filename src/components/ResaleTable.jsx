@@ -111,7 +111,7 @@ function ResaleTable({ resales, addResale, addList, search, onFilterSubmit }) {
           <Table
             size={{ base: "sm", md: "md" }}
             variant="striped"
-            colorScheme="blackAlpha"
+            colorScheme="gray"
             overflowX="auto"
           >
             <TableCaption>Results filtered by Search</TableCaption>

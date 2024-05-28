@@ -32,7 +32,7 @@ function ResaleData({ resaleList, delResale, cloneResale }) {
           <Table
             size={{ base: "sm", md: "md" }}
             variant="striped"
-            colorScheme="blackAlpha"
+            colorScheme="gray"
           >
             <TableCaption placement="top" textAlign="left">
               Saved Market Transaction List

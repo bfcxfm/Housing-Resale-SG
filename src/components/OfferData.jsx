@@ -58,7 +58,7 @@ function OfferData({ offerList, delOffer, editOffer, addOffer }) {
           <Table
             size={{ base: "sm", md: "md" }}
             variant="striped"
-            colorScheme="blackAlpha"
+            colorScheme="gray"
           >
             <TableCaption></TableCaption>
             <Thead>
