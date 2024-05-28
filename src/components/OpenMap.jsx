@@ -28,9 +28,10 @@ export default function OpenMap({ search }) {
   const [isDarkMode] = useMediaQuery("(prefers-color-scheme: dark)");
   const { colorMode } = useColorMode();
 
-  const mapUrl = colorMode==="dark"
-    ? "https://www.onemap.gov.sg/maps/tiles/Night/{z}/{x}/{y}.png"
-    : "https://www.onemap.gov.sg/maps/tiles/Default/{z}/{x}/{y}.png";
+  const mapUrl =
+    colorMode === "dark"
+      ? "https://www.onemap.gov.sg/maps/tiles/Night/{z}/{x}/{y}.png"
+      : "https://www.onemap.gov.sg/maps/tiles/Default/{z}/{x}/{y}.png";
 
   if (!search.LATITUDE || !search.LONGITUDE) {
     return null; // Return null if search.LATITUDE or search.LONGITUDE is not available
