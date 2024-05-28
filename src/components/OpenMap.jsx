@@ -14,6 +14,7 @@ import iconUrl from "leaflet/dist/images/marker-icon.png";
 import iconRetinaUrl from "leaflet/dist/images/marker-icon-2x.png";
 import shadowUrl from "leaflet/dist/images/marker-shadow.png";
 import { useMediaQuery } from "@chakra-ui/react";
+import { useColorMode } from "@chakra-ui/color-mode";
 
 delete L.Icon.Default.prototype._getIconUrl;
 
@@ -25,8 +26,9 @@ L.Icon.Default.mergeOptions({
 
 export default function OpenMap({ search }) {
   const [isDarkMode] = useMediaQuery("(prefers-color-scheme: dark)");
+  const { colorMode } = useColorMode();
 
-  const mapUrl = isDarkMode
+  const mapUrl = colorMode==="dark"
     ? "https://www.onemap.gov.sg/maps/tiles/Night/{z}/{x}/{y}.png"
     : "https://www.onemap.gov.sg/maps/tiles/Default/{z}/{x}/{y}.png";
 
