@@ -12,7 +12,6 @@ const config = {
 // 3. extend the theme
 const theme = extendTheme({ config });
 
-console.log();
-localStorage.removeItem("chakra-ui-color-mode");
+// localStorage.removeItem("chakra-ui-color-mode");
 
 export default theme;
