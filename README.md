@@ -145,6 +145,7 @@ ResaleChart *-- SearchBar
 - **Leaflet**: library for interactive maps.
 - **Chakra UI**: component library for building user interfaces.
 - **Chart.js**: JavaScript charting library for creating responsive and interactive charts.
+- **Airtable**: A cloud-based collaboration platform for CRUD structured data.
 
 ### Setup Instructions
 
