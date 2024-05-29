@@ -1,4 +1,4 @@
-# Singapore Residential Property Price Trend - Housing Resale Price Insight
+# Singapore Residential Property Price Trend - Housing Resale Insight
 
 ## Overview
 
