@@ -21,7 +21,25 @@ This web app offers comprehensive insights into the Singapore residential proper
 
 This app is designed to provide valuable market insights and assist users in navigating the property resale landscape in Singapore.
 
-### Components
+### Components and Screenshots
+
+#### Landing Page with Search, Map, and Chart
+
+These components encompasses the landing page of the web application, offering a comprehensive interface featuring a search functionality, interactive map display, and insightful chart visualization. Users can initiate property searches using autocompletion, explore geographical locations through an interactive map, and analyze market trends via intuitive charts.
+
+![image](public/Part-1.png)
+
+#### Modal page with personal tracking List
+
+The modal page presents users with a personalized tracking list feature. Here, users can manage their tracked transactions, adding properties of interest for future reference. Additionally, users have the ability to set their own offer or target prices based on location, size, and price for comparative analysis.
+
+![image](public/Part-2.png)
+
+#### Table with detailed transaction Data
+
+This component comprises a table showcasing detailed transaction data. Users can access comprehensive information about each property transaction, including specifics such as flat size, storey, area, and transaction price. The table provides users with a structured and organized view of the dataset with filter and sorting function, facilitating efficient analysis and decision-making.
+
+![image](public/Part-3.png)
 
 ```mermaid
 classDiagram
@@ -173,3 +191,7 @@ ResaleChart *-- SearchBar
 - **Data.gov.sg**: Singapore's open data platform providing publicly available datasets.
 
 The current dataset includes transactions from the current month of the year, dating back to 2007. Transaction price data are sourced from the Housing & Development Board's resale transactions dataset.
+
+## Future Implementation
+
+In future iterations, the project aims to generate a comprehensive resale price index for various Singaporean neighborhoods, providing insights into market trends and price fluctuations based on zoning areas, in addition to the current HDB index. Additionally, a RESTful API will be implemented to enable programmable access to analyzed property resale data, facilitating advanced analysis and custom applications.
