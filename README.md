@@ -21,7 +21,7 @@ This web app offers comprehensive insights into the Singapore residential proper
 
 This app is designed to provide valuable market insights and assist users in navigating the property resale landscape in Singapore.
 
-### Components and Screenshots
+## Components and Screenshots
 
 #### Landing Page with Search, Map, and Chart
 
