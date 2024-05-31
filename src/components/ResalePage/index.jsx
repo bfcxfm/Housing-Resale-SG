@@ -232,6 +232,10 @@ const ResalePage = () => {
           id: data._id,
         }));
         setResale(resaleData);
+        setSearch({
+          ...search, // spread the current state
+          BLK_NO: "", // toggle the value of BLK
+        });
       }
     } catch (error) {
       // Handle any errors that occur during fetch
