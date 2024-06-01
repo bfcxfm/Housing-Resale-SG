@@ -234,7 +234,7 @@ function ResaleList() {
 
   // Return a table with the respective record fields as columns
   return (
-    <div className="container">
+    <div>
       <Text
         bgGradient="linear(to-r, cyan.400, purple.400)"
         bgClip="text"
