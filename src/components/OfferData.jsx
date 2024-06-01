@@ -60,7 +60,9 @@ function OfferData({ offerList, delOffer, editOffer, addOffer }) {
             variant="striped"
             colorScheme="gray"
           >
-            <TableCaption></TableCaption>
+            <TableCaption placement="top" textAlign="left">
+              Personal Transaction List
+            </TableCaption>
             <Thead>
               <Tr>
                 <Th>Month</Th>
