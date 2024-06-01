@@ -241,17 +241,17 @@ function ResaleList() {
         fontSize="3xl"
         fontWeight="extrabold"
       >{`My Saved Resale List`}</Text>
-      <OfferData
-        offerList={offerList}
-        addOffer={addOffer}
-        editOffer={editOffer}
-        delOffer={delOffer}
-      />
 
       <ResaleData
         resaleList={resaleList}
         delResale={delResale}
         cloneResale={cloneResale}
+      />
+      <OfferData
+        offerList={offerList}
+        addOffer={addOffer}
+        editOffer={editOffer}
+        delOffer={delOffer}
       />
     </div>
   );
