@@ -26,7 +26,7 @@ import {
 
 function ResaleData({ resaleList, delResale, cloneResale }) {
   return (
-    <Card>
+    <Card borderRadius="lg" boxShadow="lg">
       <CardBody>
         <TableContainer>
           <Table

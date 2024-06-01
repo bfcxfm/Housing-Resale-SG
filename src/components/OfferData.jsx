@@ -52,7 +52,7 @@ function OfferData({ offerList, delOffer, editOffer, addOffer }) {
   };
 
   return (
-    <Card mt={"3rem"}>
+    <Card mt={"3rem"} borderRadius="lg" boxShadow="lg">
       <CardBody>
         <TableContainer>
           <Table
